@@ -1,0 +1,13 @@
+@import 'base.scss';
+
+.list-group-item {
+  cursor: pointer;
+}
+
+.list-group-item:hover {
+  background-color: #eee;
+}
+
+.video-list img {
+  max-width: 64px;
+}
