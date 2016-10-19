@@ -1,0 +1,16 @@
+@import 'base.scss';
+
+.header {
+    margin: 2em auto;
+    text-align: center;
+    color: $black;
+}
+
+h1 {
+    font-size: $h1Size;
+}
+
+h2 {
+    font-size: $h2Size;
+    color: rgb(100,100,100);
+}

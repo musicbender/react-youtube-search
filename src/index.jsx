@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
+import Header from './components/header.jsx';
 import SearchBar from './components/search-bar.jsx';
 import VideoList from './components/video-list.jsx';
 import VideoDetail from './components/video-detail.jsx';
@@ -18,7 +19,7 @@ class App extends Component {
             selectedVideo: null
         };
         
-        this.videoSearch('surfboard');
+        this.videoSearch('marimba');
     }
     
     videoSearch(term) {
@@ -35,6 +36,7 @@ class App extends Component {
         
         return (
             <div>
+                <Header />
                 <SearchBar onSearchTermChange={videoSearch} />
                 <VideoDetail video={this.state.selectedVideo}/>
                 <VideoList 
