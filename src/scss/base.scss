@@ -1,5 +1,15 @@
 @import 'variables.scss';
+@import url('https://fonts.googleapis.com/css?family=Roboto:100, 400');
 
-body {
-    background-color: $red500;
+html, body {
+    background-color: $offWhite;
+}
+
+body * {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    background-color: $red300;
+    padding: 0 0 1em 0;
 }
