@@ -16,23 +16,23 @@ const API_KEY = 'AIzaSyD0tW8Wi1eMDsk6WxqA-EO1_5MtbwyS0pc';
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
-  palette: {
-    accent1Color: deepOrange500,
-  },
+    palette: {
+        accent1Color: deepOrange500,
+    },
 });
 
 class App extends Component {
     constructor(props) {
         super(props);
-        
+
         this.state = { 
             videos: [],
             selectedVideo: null
         };
-        
+
         this.videoSearch('marimba');
     }
-    
+
     videoSearch(term) {
         YTSearch({key: API_KEY, term: term}, (videos) => {
             this.setState({
@@ -42,19 +42,21 @@ class App extends Component {
         });
     }
 
-    
+
     render() {
         const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
-        
+
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
-                <Header />
-                <SearchBar onSearchTermChange={videoSearch} />
-                <VideoDetail video={this.state.selectedVideo} />
-                <VideoList 
-                    onVideoSelect={selectedVideo => this.setState({selectedVideo})} 
-                    videos={this.state.videos} 
-                />
+                <div>
+                    <Header />
+                    <SearchBar onSearchTermChange={videoSearch} />
+                    <VideoDetail video={this.state.selectedVideo} />
+                    <VideoList 
+                        onVideoSelect={selectedVideo => this.setState({selectedVideo})} 
+                        videos={this.state.videos} 
+                        />
+                </div>
             </MuiThemeProvider>
         )
     }
