@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import $ from 'jquery';
+import $ from './vendor/jquery-ajax';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Header from './components/header.jsx';
 import SearchBar from './components/search-bar.jsx';
@@ -13,6 +13,7 @@ import VideoDetail from './components/video-detail.jsx';
 
 
 const API_KEY = 'AIzaSyD0tW8Wi1eMDsk6WxqA-EO1_5MtbwyS0pc';
+
 injectTapEventPlugin();
 
 class App extends Component {
@@ -21,7 +22,8 @@ class App extends Component {
 
         this.state = { 
             videos: [],
-            selectedVideo: null
+            selectedVideo: null,
+            word: null
         };
 
         this.videoSearch('marimba');
@@ -35,15 +37,26 @@ class App extends Component {
             });
         });
     }
+    
+    getWord() {
+        const requestStr = "http://randomword.setgetgo.com/get.php";
 
-
+        $.ajax({
+            type: "GET",
+            url: requestStr,
+            dataType: "jsonp",
+        }).done(function(data) {
+            console.log(data);
+        });
+    }
+    
     render() {
         const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
 
         return (
             <MuiThemeProvider>
                 <div>
-                    <Header />
+                    <Header onRandomWord={this.getWord} />
                     <SearchBar onSearchTermChange={videoSearch} />
                     <VideoDetail video={this.state.selectedVideo} />
                     <VideoList 
