@@ -38,16 +38,9 @@ class App extends Component {
         });
     }
     
-    getWord() {
-        const requestStr = "http://randomword.setgetgo.com/get.php";
-
-        $.ajax({
-            type: "GET",
-            url: requestStr,
-            dataType: "jsonp",
-        }).done(function(data) {
-            console.log(data);
-        });
+    getWord(word) {
+        console.log(word);
+        this.videoSearch(word);
     }
     
     render() {
@@ -56,7 +49,7 @@ class App extends Component {
         return (
             <MuiThemeProvider>
                 <div>
-                    <Header onRandomWord={this.getWord} />
+                    <Header getWord={this.getWord} />
                     <SearchBar onSearchTermChange={videoSearch} />
                     <VideoDetail video={this.state.selectedVideo} />
                     <VideoList 
