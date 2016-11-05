@@ -50,13 +50,14 @@ class App extends Component {
             url: requestStr,
             dataType: "jsonp",
         }).done(function(data) {
-            this.setState({ word: data })
-            console.log(this.state.word);
+            this.setState({ word: data });
+            console.log('getWord: ' + this.state.word.Word);
         });
     }
     
     clearWord() {
         this.setState({ word: '' });
+        console.log('clearWord: ' + this.state.word.Word);
     }
     
     render() {
@@ -65,13 +66,17 @@ class App extends Component {
         return (
             <MuiThemeProvider>
                 <div>
-                    <Header getWord={this.getWord} />
-                    <SearchBar clearWord={this.clearWord} randomWord={this.state.word} onSearchTermChange={this.videoSearch} />
-                    <VideoDetail video={this.state.selectedVideo} />
+                    <Header 
+                        getWord={this.getWord} />
+                    <SearchBar 
+                        clearWord={() => this.clearWord} 
+                        randomWord={this.state.word} 
+                        onSearchTermChange={this.videoSearch} />
+                    <VideoDetail 
+                        video={this.state.selectedVideo} />
                     <VideoList 
                         onVideoSelect={selectedVideo => this.setState({selectedVideo})} 
-                        videos={this.state.videos} 
-                        />
+                        videos={this.state.videos} />
                 </div>
             </MuiThemeProvider>
         )

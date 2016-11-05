@@ -5,13 +5,16 @@ class SearchBar extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { term: '' };
+        this.state = { 
+            term: '',
+            random: false
+        };
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.randomWord !== '') {
-            this.setState({ term: nextProps.randomWord });
-        }
+            this.onInputChange(this.props.randomWord.Word)
+        }   
     }
     
     onInputChange(term) {
