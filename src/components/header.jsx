@@ -21,19 +21,6 @@ const styles = {
 
 class Header extends Component {
     
-    handleRandomWord() {
-        const requestStr = "http://randomword.setgetgo.com/get.php";
-        
-        $.ajax({
-            context: this,
-            type: "GET",
-            url: requestStr,
-            dataType: "jsonp",
-        }).done(function(data) {
-            this.props.getWord(data);
-        });
-    }
-    
     render() {
         return ( 
         <AppBar
@@ -41,7 +28,7 @@ class Header extends Component {
             style={styles.main}
             title={<span>YouTube Search</span>}
             iconStyleLeft={styles.iconLeft}
-            iconElementRight={<FlatButton {...styles.iconRight} onClick={ () => this.handleRandomWord() } />}
+            iconElementRight={<FlatButton {...styles.iconRight} onClick={ () => this.props.getWord() } />}
             iconStyleRight={styles.iconRight} />
         )
     }

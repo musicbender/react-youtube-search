@@ -23,9 +23,12 @@ class App extends Component {
         this.state = { 
             videos: [],
             selectedVideo: null,
-            word: null
+            word: ''
         };
-
+     
+        this.getWord = this.getWord.bind(this);
+        this.videoSearch = this.videoSearch.bind(this);
+        
         this.videoSearch('marimba');
     }
 
@@ -38,9 +41,22 @@ class App extends Component {
         });
     }
     
-    getWord(word) {
-        console.log(word);
-        this.videoSearch(word);
+    getWord() {
+        const requestStr = "http://randomword.setgetgo.com/get.php";
+        
+        $.ajax({
+            context: this,
+            type: "GET",
+            url: requestStr,
+            dataType: "jsonp",
+        }).done(function(data) {
+            this.setState({ word: data })
+            console.log(this.state.word);
+        });
+    }
+    
+    clearWord() {
+        this.setState({ word: '' });
     }
     
     render() {
@@ -50,7 +66,7 @@ class App extends Component {
             <MuiThemeProvider>
                 <div>
                     <Header getWord={this.getWord} />
-                    <SearchBar onSearchTermChange={videoSearch} />
+                    <SearchBar clearWord={this.clearWord} randomWord={this.state.word} onSearchTermChange={this.videoSearch} />
                     <VideoDetail video={this.state.selectedVideo} />
                     <VideoList 
                         onVideoSelect={selectedVideo => this.setState({selectedVideo})} 
