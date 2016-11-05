@@ -5,10 +5,6 @@ class SearchBar extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { 
-            term: '',
-            random: false
-        };
     }
 
     componentWillReceiveProps(nextProps) {
@@ -18,8 +14,7 @@ class SearchBar extends Component {
     }
     
     onInputChange(term) {
-        this.setState({term});
-        this.props.onSearchTermChange(term);
+        this.props.changeTerm(term);
     }
 
     render() {
@@ -32,7 +27,7 @@ class SearchBar extends Component {
                     type="text" 
                     className="form-control" 
                     aria-describedby="basic-addon1"
-                    value={this.state.term}
+                    value={this.props.term}
                     onChange={e => this.onInputChange(e.target.value)} />
             </div>
         )

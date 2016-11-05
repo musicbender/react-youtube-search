@@ -23,7 +23,8 @@ class App extends Component {
         this.state = { 
             videos: [],
             selectedVideo: null,
-            word: ''
+            word: '',
+            term: ''
         };
      
         this.getWord = this.getWord.bind(this);
@@ -71,7 +72,9 @@ class App extends Component {
                     <SearchBar 
                         clearWord={() => this.clearWord} 
                         randomWord={this.state.word} 
-                        onSearchTermChange={this.videoSearch} />
+                        onSearchTermChange={this.videoSearch(this.state.term)}
+                        term={this.state.term}
+                        changeTerm={term => this.setState({term})} />
                     <VideoDetail 
                         video={this.state.selectedVideo} />
                     <VideoList 
