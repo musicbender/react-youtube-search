@@ -3,7 +3,7 @@ import '../scss/video-detail.scss';
 
 const VideoDetail = ({video}) => {
     if (!video) {
-        return <div>Loading...</div>
+        return <div>Loading... (may have no results for this term)</div>
     }
     
     const videoId = video.id.videoId;

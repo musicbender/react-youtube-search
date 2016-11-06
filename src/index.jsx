@@ -55,11 +55,6 @@ class App extends Component {
         });
     }
     
-    clearWord() {
-        this.setState({ word: '' });
-        console.log('clearWord: ' + this.state.word);
-    }
-    
     render() {
         const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
 

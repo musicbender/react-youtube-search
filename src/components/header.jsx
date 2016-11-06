@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import $ from '../vendor/jquery-ajax';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
@@ -23,21 +23,18 @@ const styles = {
     }
 }
 
-class Header extends Component {
-    
-    render() {
+const Header = ({getWord}) => {
         return ( 
-        <AppBar
-            className="header"
-            style={styles.main}
-            title={<span>YouTube Search</span>}
-            iconStyleLeft={styles.iconLeft}
-            iconElementRight={
-                    <FlatButton {...styles.btnRight} onClick={ () => this.props.getWord() } icon={<FontIcon className="fa fa-random" style={styles.iconRight}></FontIcon>} />
-                }
-            iconStyleRight={styles.iconRight} />
+            <AppBar
+                className="header"
+                style={styles.main}
+                title={<span>YouTube Search</span>}
+                iconStyleLeft={styles.iconLeft}
+                iconElementRight={
+                        <FlatButton {...styles.btnRight} onClick={ () => getWord() } icon={<FontIcon className="fa fa-random" style={styles.iconRight}></FontIcon>} />
+                    }
+                iconStyleRight={styles.iconRight} />
         )
-    }
 }
 
 export default Header;
