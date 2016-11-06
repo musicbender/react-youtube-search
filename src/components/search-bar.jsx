@@ -4,7 +4,6 @@ import '../scss/search-bar.scss';
 class SearchBar extends Component {
     constructor(props) {
         super(props);
-
     }
 
     componentWillReceiveProps(nextProps) {

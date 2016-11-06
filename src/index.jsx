@@ -51,14 +51,13 @@ class App extends Component {
             url: requestStr,
             dataType: "jsonp",
         }).done(function(data) {
-            this.setState({ word: data });
-            console.log('getWord: ' + this.state.word.Word);
+            this.setState({ term: data.Word });
         });
     }
     
     clearWord() {
         this.setState({ word: '' });
-        console.log('clearWord: ' + this.state.word.Word);
+        console.log('clearWord: ' + this.state.word);
     }
     
     render() {
