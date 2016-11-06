@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import $ from '../vendor/jquery-ajax';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
+import FontIcon from 'material-ui/FontIcon';
 import {red500, red600, red900} from 'material-ui/styles/colors';
 
 const styles = {
@@ -11,11 +12,14 @@ const styles = {
     iconLeft: {
         display: 'none'
     },
-    iconRight: {
+    btnRight: {
         label: 'Random',
         backgroundColor: red500,
         hoverColor: red600,
         rippleColor: red900
+    },
+    iconRight: {
+        fontSize: '0.9em'
     }
 }
 
@@ -28,7 +32,9 @@ class Header extends Component {
             style={styles.main}
             title={<span>YouTube Search</span>}
             iconStyleLeft={styles.iconLeft}
-            iconElementRight={<FlatButton {...styles.iconRight} onClick={ () => this.props.getWord() } />}
+            iconElementRight={
+                    <FlatButton {...styles.btnRight} onClick={ () => this.props.getWord() } icon={<FontIcon className="fa fa-random" style={styles.iconRight}></FontIcon>} />
+                }
             iconStyleRight={styles.iconRight} />
         )
     }
