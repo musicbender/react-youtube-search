@@ -11,7 +11,6 @@ import SearchBar from './components/search-bar.jsx';
 import VideoList from './components/video-list.jsx';
 import VideoDetail from './components/video-detail.jsx';
 
-
 const API_KEY = 'AIzaSyD0tW8Wi1eMDsk6WxqA-EO1_5MtbwyS0pc';
 
 injectTapEventPlugin();
@@ -23,7 +22,6 @@ class App extends Component {
         this.state = { 
             videos: [],
             selectedVideo: null,
-            word: '',
             term: ''
         };
      
@@ -31,7 +29,7 @@ class App extends Component {
         this.videoSearch = this.videoSearch.bind(this);
         
         this.videoSearch('marimba');
-    }
+    } 
 
     videoSearch(term) {
         YTSearch({key: API_KEY, term: term}, (videos) => {
@@ -64,8 +62,6 @@ class App extends Component {
                     <Header 
                         getWord={this.getWord} />
                     <SearchBar 
-                        clearWord={() => this.clearWord} 
-                        randomWord={this.state.word} 
                         onSearchTermChange={this.videoSearch(this.state.term)}
                         term={this.state.term}
                         changeTerm={term => this.setState({term})} />

@@ -126,10 +126,12 @@
 	        _this.state = {
 	            videos: [],
 	            selectedVideo: null,
-	            word: null
+	            word: '',
+	            term: ''
 	        };
 
 	        _this.getWord = _this.getWord.bind(_this);
+	        _this.videoSearch = _this.videoSearch.bind(_this);
 
 	        _this.videoSearch('marimba');
 	        return _this;
@@ -158,15 +160,9 @@
 	                url: requestStr,
 	                dataType: "jsonp"
 	            }).done(function (data) {
-	                console.log(data);
+	                this.setState({ term: data.Word });
 	            });
 	        }
-
-	        //    searchWord() {
-	        //        console.log(this.state.word);
-	        //        this.videoSearch(this.state.word);
-	        //    }
-
 	    }, {
 	        key: 'render',
 	        value: function render() {
@@ -182,15 +178,25 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    null,
-	                    _react2.default.createElement(_header2.default, { getWord: this.getWord }),
-	                    _react2.default.createElement(_searchBar2.default, { word: this.state.word, onSearchTermChange: this.videoSearch }),
-	                    _react2.default.createElement(_videoDetail2.default, { video: this.state.selectedVideo }),
+	                    _react2.default.createElement(_header2.default, {
+	                        getWord: this.getWord }),
+	                    _react2.default.createElement(_searchBar2.default, {
+	                        clearWord: function clearWord() {
+	                            return _this3.clearWord;
+	                        },
+	                        randomWord: this.state.word,
+	                        onSearchTermChange: this.videoSearch(this.state.term),
+	                        term: this.state.term,
+	                        changeTerm: function changeTerm(term) {
+	                            return _this3.setState({ term: term });
+	                        } }),
+	                    _react2.default.createElement(_videoDetail2.default, {
+	                        video: this.state.selectedVideo }),
 	                    _react2.default.createElement(_videoList2.default, {
 	                        onVideoSelect: function onVideoSelect(selectedVideo) {
 	                            return _this3.setState({ selectedVideo: selectedVideo });
 	                        },
-	                        videos: this.state.videos
-	                    })
+	                        videos: this.state.videos })
 	                )
 	            );
 	        }
@@ -49213,8 +49219,6 @@
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(4);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -49231,15 +49235,13 @@
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
+	var _FontIcon = __webpack_require__(374);
+
+	var _FontIcon2 = _interopRequireDefault(_FontIcon);
+
 	var _colors = __webpack_require__(247);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var styles = {
 	    main: {
@@ -49248,46 +49250,34 @@
 	    iconLeft: {
 	        display: 'none'
 	    },
-	    iconRight: {
+	    btnRight: {
 	        label: 'Random',
 	        backgroundColor: _colors.red500,
 	        hoverColor: _colors.red600,
 	        rippleColor: _colors.red900
+	    },
+	    iconRight: {
+	        fontSize: '0.9em'
 	    }
 	};
 
-	var Header = function (_Component) {
-	    _inherits(Header, _Component);
+	var Header = function Header(_ref) {
+	    var getWord = _ref.getWord;
 
-	    function Header() {
-	        _classCallCheck(this, Header);
-
-	        return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
-	    }
-
-	    _createClass(Header, [{
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
-
-	            return _react2.default.createElement(_AppBar2.default, {
-	                className: 'header',
-	                style: styles.main,
-	                title: _react2.default.createElement(
-	                    'span',
-	                    null,
-	                    'YouTube Search'
-	                ),
-	                iconStyleLeft: styles.iconLeft,
-	                iconElementRight: _react2.default.createElement(_FlatButton2.default, _extends({}, styles.iconRight, { onClick: function onClick() {
-	                        return _this2.props.getWord();
-	                    } })),
-	                iconStyleRight: styles.iconRight });
-	        }
-	    }]);
-
-	    return Header;
-	}(_react.Component);
+	    return _react2.default.createElement(_AppBar2.default, {
+	        className: 'header',
+	        style: styles.main,
+	        title: _react2.default.createElement(
+	            'span',
+	            null,
+	            'YouTube Search'
+	        ),
+	        iconStyleLeft: styles.iconLeft,
+	        iconElementRight: _react2.default.createElement(_FlatButton2.default, _extends({}, styles.btnRight, { onClick: function onClick() {
+	                return getWord();
+	            }, icon: _react2.default.createElement(_FontIcon2.default, { className: 'fa fa-random', style: styles.iconRight }) })),
+	        iconStyleRight: styles.iconRight });
+	};
 
 	exports.default = Header;
 
@@ -54025,8 +54015,6 @@
 	    value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(4);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -54035,64 +54023,33 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var SearchBar = function SearchBar(_ref) {
+	    var changeTerm = _ref.changeTerm;
+	    var term = _ref.term;
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	    var onInputChange = function onInputChange(t) {
+	        changeTerm(t);
+	    };
 
-	var SearchBar = function (_Component) {
-	    _inherits(SearchBar, _Component);
-
-	    function SearchBar(props) {
-	        _classCallCheck(this, SearchBar);
-
-	        var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
-
-	        _this.state = { term: '' };
-	        return _this;
-	    }
-
-	    _createClass(SearchBar, [{
-	        key: 'onInputChange',
-	        value: function onInputChange(term) {
-	            this.setState({ term: term });
-	            this.props.onSearchTermChange(term);
-	        }
-
-	        //    printWord() {
-	        //        this.setState({
-	        //            term: this.props.word
-	        //        })
-	        //    }
-
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
-
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'input-group search-bar' },
-	                _react2.default.createElement(
-	                    'span',
-	                    { className: 'input-group-addon search-icon-container', id: 'basic-addon1' },
-	                    _react2.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
-	                ),
-	                _react2.default.createElement('input', {
-	                    type: 'text',
-	                    className: 'form-control',
-	                    'aria-describedby': 'basic-addon1',
-	                    value: this.state.term,
-	                    onChange: function onChange(e) {
-	                        return _this2.onInputChange(e.target.value);
-	                    } })
-	            );
-	        }
-	    }]);
-
-	    return SearchBar;
-	}(_react.Component);
+	    return _react2.default.createElement(
+	        'div',
+	        { className: 'input-group search-bar' },
+	        _react2.default.createElement(
+	            'span',
+	            { className: 'input-group-addon search-icon-container', id: 'basic-addon1' },
+	            _react2.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
+	        ),
+	        _react2.default.createElement('input', {
+	            type: 'text',
+	            className: 'form-control',
+	            'aria-describedby': 'basic-addon1',
+	            value: term,
+	            onChange: function onChange(e) {
+	                return onInputChange(e.target.value);
+	            } })
+	    );
+	};
 
 	exports.default = SearchBar;
 
@@ -54135,7 +54092,7 @@
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Roboto:100, 400);", ""]);
 
 	// module
-	exports.push([module.id, ".form-control, .input-group-addon {\n  border-radius: 0;\n  border: 0; }\n\nhtml, body {\n  background-color: whitesmoke; }\n\n* {\n  font-family: 'Roboto', sans-serif;\n  border-radius: 0 !important; }\n\n.container {\n  background-color: #E57373;\n  padding: 0 0 1em 0;\n  margin: 4em auto 0 auto; }\n\n.search-bar {\n  margin: 1em;\n  text-align: center;\n  width: calc(100% - 2em); }\n\n.search-bar input {\n  font-size: 2em;\n  width: 100%; }\n\n.search-icon-container {\n  width: 4em;\n  background-color: #FFEBEE; }\n\n.fa.fa-search {\n  color: #B71C1C; }\n", ""]);
+	exports.push([module.id, ".form-control, .input-group-addon {\n  border-radius: 0;\n  border: 0; }\n\nhtml, body {\n  background-color: whitesmoke; }\n\n* {\n  font-family: 'Roboto', sans-serif;\n  border-radius: 0 !important; }\n\n.container {\n  background-color: #EF9A9A;\n  padding: 0 0 1em 0;\n  margin: 4em auto 0 auto; }\n\n.search-bar {\n  margin: 1em;\n  text-align: center;\n  width: calc(100% - 2em); }\n\n.search-bar input {\n  font-size: 2em;\n  width: 100%; }\n\n.search-icon-container {\n  width: 4em;\n  background-color: #FFEBEE; }\n\n.fa.fa-search {\n  color: #B71C1C; }\n", ""]);
 
 	// exports
 
@@ -54579,7 +54536,7 @@
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Roboto:100, 400);", ""]);
 
 	// module
-	exports.push([module.id, ".form-control, .input-group-addon {\n  border-radius: 0;\n  border: 0; }\n\nhtml, body {\n  background-color: whitesmoke; }\n\n* {\n  font-family: 'Roboto', sans-serif;\n  border-radius: 0 !important; }\n\n.container {\n  background-color: #E57373;\n  padding: 0 0 1em 0;\n  margin: 4em auto 0 auto; }\n\n.list-group-item {\n  cursor: pointer; }\n\n.list-group-item:hover {\n  background-color: #FFCDD2; }\n\n.video-list img {\n  max-width: 64px; }\n", ""]);
+	exports.push([module.id, ".form-control, .input-group-addon {\n  border-radius: 0;\n  border: 0; }\n\nhtml, body {\n  background-color: whitesmoke; }\n\n* {\n  font-family: 'Roboto', sans-serif;\n  border-radius: 0 !important; }\n\n.container {\n  background-color: #EF9A9A;\n  padding: 0 0 1em 0;\n  margin: 4em auto 0 auto; }\n\n.list-group-item {\n  cursor: pointer; }\n\n.list-group-item:hover {\n  background-color: #FFCDD2; }\n\n.video-list img {\n  max-width: 64px; }\n", ""]);
 
 	// exports
 
@@ -54653,7 +54610,7 @@
 	        return _react2.default.createElement(
 	            'div',
 	            null,
-	            'Loading...'
+	            'Loading... (may have no results for this term)'
 	        );
 	    }
 
@@ -54727,7 +54684,7 @@
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Roboto:100, 400);", ""]);
 
 	// module
-	exports.push([module.id, ".form-control, .input-group-addon {\n  border-radius: 0;\n  border: 0; }\n\nhtml, body {\n  background-color: whitesmoke; }\n\n* {\n  font-family: 'Roboto', sans-serif;\n  border-radius: 0 !important; }\n\n.container {\n  background-color: #E57373;\n  padding: 0 0 1em 0;\n  margin: 4em auto 0 auto; }\n\n.video-detail .details {\n  margin-top: 10px;\n  padding: 10px;\n  background-color: #FFEBEE; }\n", ""]);
+	exports.push([module.id, ".form-control, .input-group-addon {\n  border-radius: 0;\n  border: 0; }\n\nhtml, body {\n  background-color: whitesmoke; }\n\n* {\n  font-family: 'Roboto', sans-serif;\n  border-radius: 0 !important; }\n\n.container {\n  background-color: #EF9A9A;\n  padding: 0 0 1em 0;\n  margin: 4em auto 0 auto; }\n\n.video-detail .details {\n  margin-top: 10px;\n  padding: 10px;\n  background-color: #FFEBEE; }\n", ""]);
 
 	// exports
 
