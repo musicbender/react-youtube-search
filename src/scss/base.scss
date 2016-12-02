@@ -13,6 +13,7 @@ html, body {
 
 .container {
     background-color: $red200;
-    padding: 0 0 1em 0; 
-    margin: 4em auto 0 auto;
+    padding: 0 0 1em 0;
+    margin: 0 auto;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }

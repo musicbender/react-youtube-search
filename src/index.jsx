@@ -10,6 +10,7 @@ import Header from './components/header.jsx';
 import SearchBar from './components/search-bar.jsx';
 import VideoList from './components/video-list.jsx';
 import VideoDetail from './components/video-detail.jsx';
+import './scss/base.scss';
 
 const API_KEY = 'AIzaSyD0tW8Wi1eMDsk6WxqA-EO1_5MtbwyS0pc';
 
@@ -19,17 +20,17 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { 
+        this.state = {
             videos: [],
             selectedVideo: null,
             term: ''
         };
-     
+
         this.getWord = this.getWord.bind(this);
         this.videoSearch = this.videoSearch.bind(this);
-        
+
         this.videoSearch('marimba');
-    } 
+    }
 
     videoSearch(term) {
         YTSearch({key: API_KEY, term: term}, (videos) => {
@@ -39,10 +40,10 @@ class App extends Component {
             });
         });
     }
-    
+
     getWord() {
         const requestStr = "http://randomword.setgetgo.com/get.php";
-        
+
         $.ajax({
             context: this,
             type: "GET",
@@ -52,28 +53,28 @@ class App extends Component {
             this.setState({ term: data.Word });
         });
     }
-    
+
     render() {
         const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
 
         return (
             <MuiThemeProvider>
                 <div>
-                    <Header 
+                    <Header
                         getWord={this.getWord} />
-                    <SearchBar 
+                    <SearchBar
                         onSearchTermChange={this.videoSearch(this.state.term)}
                         term={this.state.term}
                         changeTerm={term => this.setState({term})} />
-                    <VideoDetail 
+                    <VideoDetail
                         video={this.state.selectedVideo} />
-                    <VideoList 
-                        onVideoSelect={selectedVideo => this.setState({selectedVideo})} 
+                    <VideoList
+                        onVideoSelect={selectedVideo => this.setState({selectedVideo})}
                         videos={this.state.videos} />
                 </div>
             </MuiThemeProvider>
         )
     }
-} 
+}
 
 ReactDOM.render(<App />, document.querySelector('.container'));

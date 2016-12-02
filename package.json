@@ -1,9 +1,9 @@
 {
-  "name": "redux-simple-starter",
+  "name": "react-youtube-search",
   "version": "1.0.0",
-  "description": "Simple starter package for Redux with React and Babel support",
-  "main": "index.js",
-  "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
+  "description": "Search Youtube as you type or use the random word search",
+  "main": "index.jsx",
+  "repository": "git@github.com:musicbender/react-youtube-search.git",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
@@ -38,7 +38,7 @@
     "react-dom": "^15.3.2",
     "react-redux": "^4.0.0",
     "react-router": "^2.0.1",
-    "react-tap-event-plugin": "^1.0.0",
+    "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.0.4",
     "youtube-api-search": "0.0.5"
   }
