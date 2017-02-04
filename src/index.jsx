@@ -66,11 +66,13 @@ class App extends Component {
                         onSearchTermChange={this.videoSearch(this.state.term)}
                         term={this.state.term}
                         changeTerm={term => this.setState({term})} />
-                    <VideoDetail
-                        video={this.state.selectedVideo} />
-                    <VideoList
-                        onVideoSelect={selectedVideo => this.setState({selectedVideo})}
-                        videos={this.state.videos} />
+                    <div className="row video-row">
+                        <VideoDetail
+                            video={this.state.selectedVideo} />
+                        <VideoList
+                            onVideoSelect={selectedVideo => this.setState({selectedVideo})}
+                            videos={this.state.videos} />
+                      </div>
                 </div>
             </MuiThemeProvider>
         )
